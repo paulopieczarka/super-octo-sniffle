@@ -19,7 +19,7 @@ export class Game {
   }
 
   public render() {
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = '#819447';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.world.executeSystems();

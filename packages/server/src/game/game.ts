@@ -1,6 +1,7 @@
 import type { ServerWebSocket } from "bun";
+import type { Player } from "@hagokia/game";
+
 import { WorldServer } from "./world";
-import type { Player } from "./player";
 
 export class Game {
   public players = new Array<ServerWebSocket<{ player: Player }>>();

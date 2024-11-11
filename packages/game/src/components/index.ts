@@ -5,4 +5,6 @@ export {
   TargetPosition,
   ComponentMask,
   Component,
+  Shape,
+  Depth,
 } from './component';

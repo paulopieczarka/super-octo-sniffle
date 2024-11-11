@@ -9,7 +9,7 @@ export class World {
 
   public executeSystems() {
     for (const system of this.systems) {
-      for (const entity of Array.from(this.entities.values())) {
+      for (const entity of this.getEntityArray()) {
         const entityComponentsMask = Array.from(this.components.get(entity.id)?.values() ?? []).reduce((mask, comp) => mask | comp.getMask(), 0) ?? 0;
         const shouldExecuteForEntity = (system.requiredComponents & entityComponentsMask) === system.requiredComponents;
     
@@ -18,6 +18,10 @@ export class World {
         }
       }
     }
+  }
+
+  public getEntityArray() {
+    return Array.from(this.entities.values());
   }
 
   public createEntity(name: string, params: { components: Component[] }) {
@@ -29,6 +33,10 @@ export class World {
 
     this.entities.set(entity.id, entity);
     return entity;
+  }
+
+  public getEntity(id: number) {
+    return this.entities.get(id);
   }
 
   public addComponent(entityId: number, component: Component) {
@@ -91,40 +99,3 @@ export class World {
     }
   }
 }
-
-export class WorldServer extends World {
-  constructor() {
-    super();
-
-    this.addSystem(new Movement());
-
-    this.createEntity('Campfire', {
-      components: [
-        new Position(235, 238),
-        new Dimension(10, 4),
-        new Color('red'),
-      ],
-    });
-    
-    for (let i=0; i < 10; i++) {
-      const rx = Math.random() * 480;
-      const ry = Math.random() * 480;
-
-      this.createEntity('Rock', {
-        components: [new Position(rx, ry), new Dimension(5, 5), new Color('white')],
-      });
-    }
-
-    for (let i=0; i < 10; i++) {
-      const rx = Math.random() * 480;
-      const ry = Math.random() * 480;
-
-      this.createEntity('Human', {
-        components: [new Position(rx, ry), new Dimension(10, 10), new Color('red'), new TargetPosition(64, 64)],
-      });
-    }
-  }
-}
-
-
-

@@ -1,5 +1,7 @@
 import Bun from 'bun';
-import { Game, type Player } from '@hagokia/game';
+import type { Player } from '@hagokia/game';
+
+import { Game } from './game/game';
 
 const game = new Game();
 

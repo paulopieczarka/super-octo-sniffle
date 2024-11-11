@@ -1,10 +1,10 @@
 import type { Component } from "solid-js";
-import { createWS, createWSState } from "@solid-primitives/websocket";
+import { createReconnectingWS, createWS, createWSState } from "@solid-primitives/websocket";
 
 import { Canvas } from "./canvas";
 
 export const App: Component = () => {
-  const ws = createWS("ws://localhost:9000/ws");
+  const ws = createReconnectingWS("ws://localhost:9000/ws");
 
   const state = createWSState(ws);
   const states = ["connecting", "connected", "disconnecting", "disconnected"];
