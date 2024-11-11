@@ -1,6 +1,6 @@
-import { World } from "@hagokia/game";
+import type { World } from "@hagokia/game";
 import { Color, ComponentMask, Dimension, Position } from "@hagokia/game/compoennts";
-import { Entity } from "@hagokia/game/entities";
+import type { Entity } from "@hagokia/game/entities";
 import { System } from "@hagokia/game/systems";
 
 export class Renderer extends System {
@@ -13,9 +13,11 @@ export class Renderer extends System {
   }
 
   public execute(entity: Entity, world: World) {
-    const position = world.getComponent<Position>(entity.id, Position)!;
-    const dimension = world.getComponent<Dimension>(entity.id, Dimension)!;
-    const color = world.getComponent<Color>(entity.id, Color)!;
+    const position = world.getComponent<Position>(entity.id, Position);
+    const dimension = world.getComponent<Dimension>(entity.id, Dimension);
+    const color = world.getComponent<Color>(entity.id, Color);
+
+    if (!position || !dimension || !color) return;
 
     this.ctx.fillStyle = color.value;
     this.ctx.fillRect(position.x, position.y, dimension.width, dimension.height);

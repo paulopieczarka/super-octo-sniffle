@@ -10,8 +10,6 @@ export const ComponentMask = {
 export abstract class Component {
   private readonly mask: number;
 
-  // public networkState: NetworkState = 'synced';
-
   constructor(mask: keyof typeof ComponentMask) {
     this.mask = ComponentMask[mask];
   }
@@ -20,19 +18,11 @@ export abstract class Component {
     return this.mask;
   }
 
-  // public isDirty() {
-  //   return this.networkState === 'dirty';
-  // }
-
-  // public isRemoved() {
-  //   return this.networkState === 'removed';
-  // }
-
   public toJSON() {
     return { name: this.constructor.name };
   }
 
-  public static fromJSON(args: any) {}
+  public static fromJSON(args: unknown) {}
 }
 
 export class Position extends Component {

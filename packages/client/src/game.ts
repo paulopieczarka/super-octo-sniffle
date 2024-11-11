@@ -7,7 +7,12 @@ export class Game {
   private ctx: CanvasRenderingContext2D;
 
   constructor(private canvas: HTMLCanvasElement) {
-    this.ctx = canvas.getContext('2d')!;
+    const context2d = canvas.getContext('2d');
+    if (!context2d) {
+      throw new Error('Missing Context 2D!')
+    }
+
+    this.ctx = context2d;
     this.world = new WorldClient();
 
     this.world.addSystem(new Renderer(this.ctx));

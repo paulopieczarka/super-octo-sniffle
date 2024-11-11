@@ -1,4 +1,4 @@
-import { Color, ComponentMask, Dimension, Position, TargetPosition } from "../components/component";
+import { ComponentMask, Position, TargetPosition } from "../components/component";
 import type { Entity } from "../entities/entity";
 import type { World } from "../world";
 
@@ -25,8 +25,10 @@ export class Movement extends System {
   }
 
   public execute(entity: Entity, world: World) {
-    const position = world.getComponent(entity.id, Position)!;
-    const targetPosition = world.getComponent(entity.id, TargetPosition)!;
+    const position = world.getComponent(entity.id, Position);
+    const targetPosition = world.getComponent(entity.id, TargetPosition);
+
+    if (!position || !targetPosition) return;
 
     if (distance(position, targetPosition) > 1) {
       position.x = lerp(position.x, targetPosition.x, 0.1);
