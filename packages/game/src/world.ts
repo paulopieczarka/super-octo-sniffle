@@ -9,8 +9,8 @@ export class World {
 
   public executeSystems() {
     for (const system of this.systems) {
-      for (const entity of this.entities.values()) {
-        const entityComponentsMask = this.components.get(entity.id)?.values().reduce((mask, comp) => mask | comp.getMask(), 0) ?? 0;
+      for (const entity of Array.from(this.entities.values())) {
+        const entityComponentsMask = Array.from(this.components.get(entity.id)?.values() ?? []).reduce((mask, comp) => mask | comp.getMask(), 0) ?? 0;
         const shouldExecuteForEntity = (system.requiredComponents & entityComponentsMask) === system.requiredComponents;
     
         if (shouldExecuteForEntity) {
@@ -33,6 +33,7 @@ export class World {
 
   public addComponent(entityId: number, component: Component) {
     const components = this.components.get(entityId);
+
     if (!components) {
       this.components.set(entityId, new Set([component]));
       return;
