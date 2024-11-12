@@ -53,7 +53,6 @@ export class Renderer extends System {
     
         this.ctx.fillStyle = fillStyle === 'componentColor' ? color?.value ?? 'pink' : fillStyle;
 
-        
         this.ctx.fill();
         if (lineWidth) {
           this.ctx.strokeStyle = strokeStyle ?? 'black';

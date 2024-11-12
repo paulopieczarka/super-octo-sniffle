@@ -1,3 +1,5 @@
+import type { Item } from "../items";
+
 export const ComponentMask = {
   Position: 1 << 0,
   Dimension: 1 << 1,
@@ -6,6 +8,7 @@ export const ComponentMask = {
   Shape: 1 << 4,
   FollowEntity: 1 << 5,
   Depth: 1 << 6,
+  Resource: 1 << 7,
 } as const;
 
 export abstract class Component {
@@ -132,6 +135,49 @@ export class FollowEntity extends Component {
   }
 }
 
+export class Resource extends Component {
+  constructor(public readonly item: Item, public amount = 1) {
+    super('Resource');
+  }
+
+  public toJSON() {
+    return { ...super.toJSON(), item: this.item, amount: this.amount };
+  }
+
+  public static fromJSON({ item, amount }: Omit<ReturnType<typeof Resource.prototype.toJSON>, 'name'>) {
+    return new Resource(item, amount);
+  }
+}
+
+export class Inventory extends Component {
+  constructor(public slots = 1) {
+    super('Resource');
+  }
+
+  public toJSON() {
+    return { ...super.toJSON(), slots: this.slots };
+  }
+
+  public static fromJSON({ item, amount }: Omit<ReturnType<typeof Resource.prototype.toJSON>, 'name'>) {
+    return new Resource(item, amount);
+  }
+}
+
+export class TaskGatherItem extends Component {
+  constructor(public entityId: number, public radius = 0) {
+    super('FollowEntity');
+  }
+
+  public toJSON() {
+    return { ...super.toJSON(), entityId: this.entityId, radius: this.radius };
+  }
+
+  public static fromJSON({ entityId, radius }: Omit<ReturnType<typeof FollowEntity.prototype.toJSON>, 'name'>) {
+    return new FollowEntity(entityId, radius);
+  }
+}
+
+
 export const componentMap = {
   Position,
   Dimension,
@@ -140,4 +186,5 @@ export const componentMap = {
   Shape,
   FollowEntity,
   Depth,
+  Resource,
 };

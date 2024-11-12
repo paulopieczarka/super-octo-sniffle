@@ -7,4 +7,5 @@ export {
   Component,
   Shape,
   Depth,
+  Resource,
 } from './component';

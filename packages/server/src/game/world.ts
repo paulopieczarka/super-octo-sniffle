@@ -1,8 +1,9 @@
 import { World } from "@hagokia/game";
 import { Color, Dimension, Position, TargetPosition } from "@hagokia/game/compoennts";
 import { Movement } from "@hagokia/game/systems";
-import { Depth, FollowEntity, Shape } from "../../../game/src/components/component";
+import { Depth, FollowEntity, Resource, Shape } from "../../../game/src/components/component";
 import { DepthCalculation, WanderAround } from "../../../game/src/systems/system";
+import { Item } from "../../../game/src/items";
 
 export class WorldServer extends World {
   constructor() {
@@ -179,6 +180,7 @@ export class WorldServer extends World {
           new Dimension(10, 14),
           new Depth(),
           new Color('#3b7d4f'),
+          new Resource(Item.Wood, 10),
           new Shape([
             {
               type: 'polygon',

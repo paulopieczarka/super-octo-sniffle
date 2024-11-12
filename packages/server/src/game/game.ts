@@ -1,10 +1,10 @@
 import type { ServerWebSocket } from "bun";
-import type { Player } from "@hagokia/game";
+import { createAction, type Player } from "@hagokia/game";
 
 import { WorldServer } from "./world";
 
 export class Game {
-  public players = new Array<ServerWebSocket<{ player: Player }>>();
+  public sockets = new Array<ServerWebSocket<{ player: Player }>>();
 
   constructor(
     public world = new WorldServer(),
@@ -15,8 +15,15 @@ export class Game {
   public update() {
     this.world.executeSystems();
 
-    for (const player of this.players) {
-      player.send(JSON.stringify(['world', this.world]));
+    this.sockets[0]?.publish('broadcast', JSON.stringify(createAction('updateWorld', this.world)));
+
+    for (const socket of this.sockets) {
+      if (socket.data.player.isDirty) {
+        socket.data.player.isDirty = false;
+        socket.send(JSON.stringify(createAction('updatePlayer', socket.data.player)))
+      }
+
+      // socket.send(JSON.stringify(createAction('updateWorld', this.world)))
     }
   }
 

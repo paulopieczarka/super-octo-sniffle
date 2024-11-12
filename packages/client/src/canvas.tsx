@@ -1,5 +1,5 @@
 import { createEffect, onMount, type Component } from 'solid-js';
-import { createWS } from '@solid-primitives/websocket';
+import type { createAction } from '@hagokia/game';
 
 import { Game } from './game/game';
 
@@ -19,7 +19,10 @@ export const Canvas: Component<CanvasProps> = (props) => {
     });
 
     ws.addEventListener('message', ({ data }) => {
-      gameRef?.world.fromJSON(JSON.parse(data)[1]);
+      const { method, payload } = JSON.parse(data) as ReturnType<typeof createAction>;
+      if (method === 'updateWorld') {
+        gameRef?.world.fromJSON(payload as any);
+      }
     });
   });
 
