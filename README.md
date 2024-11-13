@@ -1,4 +1,19 @@
-# hagokia
+# The Outsider’s Tech Stack
+
+[![Formatted with Biome](https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev/)
+
+
+## About
+
+Hagokia is a learning playground, patterns, new tech like at the moment @bun, @biome, and @solidjs.
+
+### Features
+
+- Multiplayer (WebScoket)
+- Entity-Component-System (ECS)
+- _more to come..._
+
+## Runnning locally
 
 To install dependencies:
 
@@ -9,7 +24,7 @@ bun install
 To run:
 
 ```bash
-bun run index.ts
+bun run dev
 ```
 
-This project was created using `bun init` in bun v1.1.33. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+#### _Made with <3 in Curitiba, Brazil_
