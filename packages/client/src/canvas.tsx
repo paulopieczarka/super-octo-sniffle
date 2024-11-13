@@ -21,6 +21,7 @@ export const Canvas: Component<CanvasProps> = (props) => {
     ws.addEventListener('message', ({ data }) => {
       const { method, payload } = JSON.parse(data) as ReturnType<typeof createAction>;
       if (method === 'updateWorld') {
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         gameRef?.world.fromJSON(payload as any);
       }
     });

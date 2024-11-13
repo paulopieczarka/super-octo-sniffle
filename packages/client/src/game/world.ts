@@ -1,5 +1,5 @@
 import { World } from "@hagokia/game";
-import { Depth } from "@hagokia/game/compoennts";
+import { Depth } from "@hagokia/game/components";
 
 export class WorldClient extends World {
   public override getEntityArray() {

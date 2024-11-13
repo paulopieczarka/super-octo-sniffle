@@ -50,6 +50,23 @@ export class World {
     components.add(component);
   }
 
+  public spawn<T extends Entity>(
+    EntityClass: new () => T,
+    params?: Parameters<T["initialize"]>[0],
+    components: Component[] = [], 
+  ): T {
+    const entity = new EntityClass();
+    const entityComponents = new Set([
+      ...entity.initialize(params),
+      ...components,
+    ]);
+
+    this.entities.set(entity.id, entity);
+    this.components.set(entity.id, entityComponents);
+
+    return entity;
+  }
+
   // biome-ignore lint/suspicious/noExplicitAny: must be a any
   public getComponent<T extends Component>(entityId: number, componentClass: new (...args: any[]) => T) {
     const entityComponents = this.components.get(entityId);

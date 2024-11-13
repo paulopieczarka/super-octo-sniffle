@@ -1,5 +1,5 @@
 import type { World } from "@hagokia/game";
-import { Color, ComponentMask, Depth, Dimension, Position, Shape } from "@hagokia/game/compoennts";
+import { Color, ComponentMask, Depth, Dimension, Position, Shape } from "@hagokia/game/components";
 import type { Entity } from "@hagokia/game/entities";
 import { System } from "@hagokia/game/systems";
 
