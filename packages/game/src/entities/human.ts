@@ -3,10 +3,10 @@ import { Entity } from "./entity";
 
 export class Human extends Entity {
   constructor() {
-    super('Human');
+    super("Human");
   }
-  
-  public initialize(params: { x: number, y: number, color: string }) {
+
+  public initialize(params: { x: number; y: number; color: string }) {
     return new Set([
       new Position(params.x, params.y),
       new Dimension(6, 10),

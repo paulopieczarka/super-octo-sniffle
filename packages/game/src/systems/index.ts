@@ -1,4 +1,4 @@
 export {
   System,
   Movement,
-} from './system'
+} from "./system";

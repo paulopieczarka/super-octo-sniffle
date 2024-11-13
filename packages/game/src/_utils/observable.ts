@@ -7,7 +7,7 @@ export function observable<T extends Observable>(target: T) {
     set(target, property: string & keyof T, value) {
       target[property] = value;
 
-      if (property !== 'isDirty') {
+      if (property !== "isDirty") {
         target.isDirty = true;
       }
 

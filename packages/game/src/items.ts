@@ -1,7 +1,5 @@
 export class Item {
-  public static Wood = new Item('Wood');
+  public static Wood = new Item("Wood");
 
-  constructor(
-    public readonly name: string,
-  ) {}
+  constructor(public readonly name: string) {}
 }

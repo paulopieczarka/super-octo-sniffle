@@ -1,5 +1,12 @@
 import type { World } from "@hagokia/game";
-import { Color, ComponentMask, Depth, Dimension, Position, Shape } from "@hagokia/game/components";
+import {
+  Color,
+  ComponentMask,
+  Depth,
+  Dimension,
+  Position,
+  Shape,
+} from "@hagokia/game/components";
 import type { Entity } from "@hagokia/game/entities";
 import { System } from "@hagokia/game/systems";
 
@@ -9,7 +16,12 @@ export class Renderer extends System {
   }
 
   public get requiredComponents() {
-    return ComponentMask.Position | ComponentMask.Dimension | ComponentMask.Color | ComponentMask.Depth;
+    return (
+      ComponentMask.Position |
+      ComponentMask.Dimension |
+      ComponentMask.Color |
+      ComponentMask.Depth
+    );
   }
 
   public execute(entity: Entity, world: World) {
@@ -21,18 +33,20 @@ export class Renderer extends System {
 
     if (!position || !dimension || !color) return;
 
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
     this.ctx.beginPath();
 
-    const shadowWidth = dimension.width * 1.4; 
-    const shadowHeight = dimension.height * 0.3; 
+    const shadowWidth = dimension.width * 1.4;
+    const shadowHeight = dimension.height * 0.3;
 
     this.ctx.ellipse(
-      position.x + dimension.width / 2, 
-      position.y + dimension.height + 1,    
-      shadowWidth / 2,                                  
-      shadowHeight / 2,                                 
-      0, 0, Math.PI * 2
+      position.x + dimension.width / 2,
+      position.y + dimension.height + 1,
+      shadowWidth / 2,
+      shadowHeight / 2,
+      0,
+      0,
+      Math.PI * 2,
     );
 
     this.ctx.fill();
@@ -42,20 +56,21 @@ export class Renderer extends System {
       for (const polygon of shape.data) {
         this.ctx.beginPath();
         const { coordinates, fillStyle, strokeStyle, lineWidth } = polygon;
-        
+
         this.ctx.moveTo(coordinates[0].x, coordinates[0].y);
-      
+
         for (const point of coordinates) {
           this.ctx.lineTo(point.x, point.y);
         }
-    
+
         this.ctx.closePath();
-    
-        this.ctx.fillStyle = fillStyle === 'componentColor' ? color?.value ?? 'pink' : fillStyle;
+
+        this.ctx.fillStyle =
+          fillStyle === "componentColor" ? (color?.value ?? "pink") : fillStyle;
 
         this.ctx.fill();
         if (lineWidth) {
-          this.ctx.strokeStyle = strokeStyle ?? 'black';
+          this.ctx.strokeStyle = strokeStyle ?? "black";
           this.ctx.lineWidth = lineWidth;
           this.ctx.stroke();
         }
@@ -65,6 +80,11 @@ export class Renderer extends System {
     }
 
     this.ctx.fillStyle = color.value;
-    this.ctx.fillRect(position.x, position.y, dimension.width, dimension.height);
+    this.ctx.fillRect(
+      position.x,
+      position.y,
+      dimension.width,
+      dimension.height,
+    );
   }
 }

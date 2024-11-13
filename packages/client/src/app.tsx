@@ -1,6 +1,16 @@
-import { createEffect, createMemo, createSignal, For, type Component } from "solid-js";
-import { createReconnectingWS, createWS, createWSState } from "@solid-primitives/websocket";
-import { type Action, createAction, type Player } from "@hagokia/game";
+import { type Action, type Player, createAction } from "@hagokia/game";
+import {
+  createReconnectingWS,
+  createWS,
+  createWSState,
+} from "@solid-primitives/websocket";
+import {
+  type Component,
+  For,
+  createEffect,
+  createMemo,
+  createSignal,
+} from "solid-js";
 
 import { Canvas } from "./canvas";
 
@@ -13,20 +23,20 @@ export const App: Component = () => {
   const ws = createReconnectingWS("ws://localhost:9000/ws");
 
   createEffect(() => {
-    ws.addEventListener('open', () => {
+    ws.addEventListener("open", () => {});
 
-    });
-
-    ws.addEventListener('message', ({ data }) => {
-      const { method, payload } = JSON.parse(data) as ReturnType<typeof createAction>;
-      if (method === 'updatePlayer') {
-        setPlayer(payload as Action['updatePlayer']);
+    ws.addEventListener("message", ({ data }) => {
+      const { method, payload } = JSON.parse(data) as ReturnType<
+        typeof createAction
+      >;
+      if (method === "updatePlayer") {
+        setPlayer(payload as Action["updatePlayer"]);
         return;
       }
 
-      if (method === 'addLogMessage') {
+      if (method === "addLogMessage") {
         console.log(payload);
-        setMessages((prev) => [...prev, payload as string])
+        setMessages((prev) => [...prev, payload as string]);
       }
     });
   });
@@ -35,8 +45,8 @@ export const App: Component = () => {
   const states = ["connecting", "connected", "disconnecting", "disconnected"];
 
   const handleUseCard = (cardId: string) => {
-    console.log('useCard', { id: cardId });
-    ws.send(JSON.stringify(createAction('useCard', cardId)));
+    console.log("useCard", { id: cardId });
+    ws.send(JSON.stringify(createAction("useCard", cardId)));
   };
 
   return (
@@ -46,7 +56,12 @@ export const App: Component = () => {
           <h4 class="text-white text-sm font-mono">hagokia.net</h4>
         </div>
         <div>
-          <button type="button" class="text-white text-sm bg-violet-600 px-2 py-1 rounded-md">Login</button>
+          <button
+            type="button"
+            class="text-white text-sm bg-violet-600 px-2 py-1 rounded-md"
+          >
+            Login
+          </button>
         </div>
       </header>
       <main class="flex-1 flex flex-col">
@@ -73,7 +88,7 @@ export const App: Component = () => {
             <div class="flex-1 flex flex-row justify-start gap-2 p-2">
               <For each={cards()}>
                 {(item) => {
-                  console.log('Rendering button for:', item.name); // Debug log
+                  console.log("Rendering button for:", item.name); // Debug log
                   return (
                     <button
                       type="button"
@@ -91,7 +106,9 @@ export const App: Component = () => {
       </main>
       <footer class="bg-slate-900 border-t border-slate-800 px-4 py-2">
         <ul class="flex flex-row items-center gap-4 text-xs text-slate-400 font-mono">
-          <li>Socket status: <span>{states[state()]}</span></li>
+          <li>
+            Socket status: <span>{states[state()]}</span>
+          </li>
           <li>Players online: 0</li>
         </ul>
       </footer>

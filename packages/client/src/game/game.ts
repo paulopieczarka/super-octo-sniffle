@@ -7,9 +7,9 @@ export class Game {
   private ctx: CanvasRenderingContext2D;
 
   constructor(private canvas: HTMLCanvasElement) {
-    const context2d = canvas.getContext('2d');
+    const context2d = canvas.getContext("2d");
     if (!context2d) {
-      throw new Error('Missing Context 2D!')
+      throw new Error("Missing Context 2D!");
     }
 
     this.ctx = context2d;
@@ -19,7 +19,7 @@ export class Game {
   }
 
   public render() {
-    this.ctx.fillStyle = '#819447';
+    this.ctx.fillStyle = "#819447";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.world.executeSystems();

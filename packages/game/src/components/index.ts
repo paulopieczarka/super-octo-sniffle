@@ -8,4 +8,4 @@ export {
   Shape,
   Depth,
   Resource,
-} from './component';
+} from "./component";

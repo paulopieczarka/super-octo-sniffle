@@ -30,22 +30,25 @@ export abstract class Component {
 }
 
 export class Position extends Component {
-  constructor(public x: number, public y: number) {
-    super('Position');
+  constructor(
+    public x: number,
+    public y: number,
+  ) {
+    super("Position");
   }
 
   public toJSON() {
     return { ...super.toJSON(), x: this.x, y: this.y };
   }
 
-  public static fromJSON({ x, y }: { x: number, y: number }) {
+  public static fromJSON({ x, y }: { x: number; y: number }) {
     return new Position(x, y);
   }
 }
 
 export class Color extends Component {
   constructor(public value: string) {
-    super('Color');
+    super("Color");
   }
 
   public toJSON() {
@@ -58,125 +61,156 @@ export class Color extends Component {
 }
 
 export class Depth extends Component {
-  constructor(public top = 0, public bottom = 0) {
-    super('Depth');
+  constructor(
+    public top = 0,
+    public bottom = 0,
+  ) {
+    super("Depth");
   }
 
   public toJSON() {
     return { ...super.toJSON(), top: this.top, bottom: this.bottom };
   }
 
-  public static fromJSON({ top, bottom }: { top: number, bottom: number }) {
+  public static fromJSON({ top, bottom }: { top: number; bottom: number }) {
     return new Depth(top, bottom);
   }
 }
 
 export class Dimension extends Component {
-  constructor(public width: number, public height: number) {
-    super('Dimension');
+  constructor(
+    public width: number,
+    public height: number,
+  ) {
+    super("Dimension");
   }
 
   public toJSON() {
     return { ...super.toJSON(), width: this.width, height: this.height };
   }
 
-  public static fromJSON({ width, height }: { width: number, height: number }) {
+  public static fromJSON({ width, height }: { width: number; height: number }) {
     return new Dimension(width, height);
   }
 }
 
 export class TargetPosition extends Component {
-  constructor(public x: number, public y: number) {
-    super('TargetPosition');
+  constructor(
+    public x: number,
+    public y: number,
+  ) {
+    super("TargetPosition");
   }
 
   public toJSON() {
     return { ...super.toJSON(), x: this.x, y: this.y };
   }
 
-  public static fromJSON({ x, y }: { x: number, y: number }) {
+  public static fromJSON({ x, y }: { x: number; y: number }) {
     return new TargetPosition(x, y);
   }
 }
 
 type Polygon = {
-  type: 'polygon';
-  coordinates: Array<{ x: number, y: number }>;
-  fillStyle: 'componentColor' | string;
+  type: "polygon";
+  coordinates: Array<{ x: number; y: number }>;
+  fillStyle: "componentColor" | string;
   strokeStyle?: string;
   lineWidth?: number;
 };
 
 export class Shape extends Component {
-  constructor(public data: (Polygon)[]) {
-    super('Shape');
+  constructor(public data: Polygon[]) {
+    super("Shape");
   }
 
   public toJSON() {
     return { ...super.toJSON(), data: this.data };
   }
 
-  public static fromJSON({ data }: Omit<ReturnType<typeof Shape.prototype.toJSON>, 'name'>) {
+  public static fromJSON({
+    data,
+  }: Omit<ReturnType<typeof Shape.prototype.toJSON>, "name">) {
     return new Shape(data);
   }
 }
 
 export class FollowEntity extends Component {
-  constructor(public entityId: number, public radius = 0) {
-    super('FollowEntity');
+  constructor(
+    public entityId: number,
+    public radius = 0,
+  ) {
+    super("FollowEntity");
   }
 
   public toJSON() {
     return { ...super.toJSON(), entityId: this.entityId, radius: this.radius };
   }
 
-  public static fromJSON({ entityId, radius }: Omit<ReturnType<typeof FollowEntity.prototype.toJSON>, 'name'>) {
+  public static fromJSON({
+    entityId,
+    radius,
+  }: Omit<ReturnType<typeof FollowEntity.prototype.toJSON>, "name">) {
     return new FollowEntity(entityId, radius);
   }
 }
 
 export class Resource extends Component {
-  constructor(public readonly item: Item, public amount = 1) {
-    super('Resource');
+  constructor(
+    public readonly item: Item,
+    public amount = 1,
+  ) {
+    super("Resource");
   }
 
   public toJSON() {
     return { ...super.toJSON(), item: this.item, amount: this.amount };
   }
 
-  public static fromJSON({ item, amount }: Omit<ReturnType<typeof Resource.prototype.toJSON>, 'name'>) {
+  public static fromJSON({
+    item,
+    amount,
+  }: Omit<ReturnType<typeof Resource.prototype.toJSON>, "name">) {
     return new Resource(item, amount);
   }
 }
 
 export class Inventory extends Component {
   constructor(public slots = 1) {
-    super('Resource');
+    super("Resource");
   }
 
   public toJSON() {
     return { ...super.toJSON(), slots: this.slots };
   }
 
-  public static fromJSON({ item, amount }: Omit<ReturnType<typeof Resource.prototype.toJSON>, 'name'>) {
+  public static fromJSON({
+    item,
+    amount,
+  }: Omit<ReturnType<typeof Resource.prototype.toJSON>, "name">) {
     return new Resource(item, amount);
   }
 }
 
 export class TaskGatherItem extends Component {
-  constructor(public entityId: number, public radius = 0) {
-    super('FollowEntity');
+  constructor(
+    public entityId: number,
+    public radius = 0,
+  ) {
+    super("FollowEntity");
   }
 
   public toJSON() {
     return { ...super.toJSON(), entityId: this.entityId, radius: this.radius };
   }
 
-  public static fromJSON({ entityId, radius }: Omit<ReturnType<typeof FollowEntity.prototype.toJSON>, 'name'>) {
+  public static fromJSON({
+    entityId,
+    radius,
+  }: Omit<ReturnType<typeof FollowEntity.prototype.toJSON>, "name">) {
     return new FollowEntity(entityId, radius);
   }
 }
-
 
 export const componentMap = {
   Position,

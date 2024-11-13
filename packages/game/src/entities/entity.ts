@@ -1,4 +1,10 @@
-import { Color, type Component, Depth, Dimension, Position } from "../components";
+import {
+  Color,
+  type Component,
+  Depth,
+  Dimension,
+  Position,
+} from "../components";
 
 export abstract class Entity {
   private static nextId = 0;
@@ -15,10 +21,10 @@ export abstract class Entity {
 
 export class Human extends Entity {
   constructor() {
-    super('Human');
+    super("Human");
   }
-  
-  public initialize(params: { x: number, y: number, color: string }) {
+
+  public initialize(params: { x: number; y: number; color: string }) {
     return new Set([
       new Position(params.x, params.y),
       new Dimension(6, 10),
