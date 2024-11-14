@@ -16,5 +16,5 @@
     "concurrently": "^9.1.0",
     "zod": "^3.23.8"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": ["client", "server", "game"]
 }
