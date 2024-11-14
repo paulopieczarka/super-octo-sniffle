@@ -13,6 +13,10 @@ export abstract class System {
   public abstract get requiredComponents(): number;
 
   public abstract execute(entity: Entity, world: World): void;
+
+  public shouldRun(entityMask: number) {
+    return (this.requiredComponents & entityMask) === this.requiredComponents;
+  }
 }
 
 function lerp(start: number, end: number, t: number) {

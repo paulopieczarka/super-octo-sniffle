@@ -1,11 +1,10 @@
-import type {
-  Component,
-} from "../components";
+import type { Component } from "../components";
 
 export abstract class Entity {
   private static nextId = 0;
 
   public readonly id: number;
+  public mask = 0;
 
   constructor(public name: Readonly<string>) {
     this.id = Entity.nextId++;

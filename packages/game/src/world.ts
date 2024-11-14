@@ -1,13 +1,6 @@
-import {
-  Color,
-  type Component,
-  Dimension,
-  Position,
-  TargetPosition,
-  componentMap,
-} from "./components/component";
-import { Entity } from "./entities/entity";
-import { Movement, type System } from "./systems/system";
+import { type Component, componentMap } from "./components/component";
+import type { Entity } from "./entities/entity";
+import type { System } from "./systems/system";
 
 export class World {
   private entities = new Map<number, Entity>();
@@ -16,36 +9,16 @@ export class World {
 
   public executeSystems() {
     for (const system of this.systems) {
-      for (const entity of this.getEntityArray()) {
-        const entityComponentsMask =
-          Array.from(this.components.get(entity.id)?.values() ?? []).reduce(
-            (mask, comp) => mask | comp.getMask(),
-            0,
-          ) ?? 0;
-        const shouldExecuteForEntity =
-          (system.requiredComponents & entityComponentsMask) ===
-          system.requiredComponents;
-
-        if (shouldExecuteForEntity) {
+      for (const entity of this.getEntities()) {
+        if (system.shouldRun(entity.mask)) {
           system.execute(entity, this);
         }
       }
     }
   }
 
-  public getEntityArray() {
+  public getEntities() {
     return Array.from(this.entities.values());
-  }
-
-  public createEntity(name: string, params: { components: Component[] }) {
-    const entity = new Entity(name);
-
-    for (const component of params.components) {
-      this.addComponent(entity.id, component);
-    }
-
-    this.entities.set(entity.id, entity);
-    return entity;
   }
 
   public getEntity(id: number) {
@@ -54,6 +27,11 @@ export class World {
 
   public addComponent(entityId: number, component: Component) {
     const components = this.components.get(entityId);
+    const entity = this.entities.get(entityId);
+
+    if (!entity) throw new Error(`[Error] undefined entity for id ${entityId}`);
+
+    entity.mask |= component.getMask();
 
     if (!components) {
       this.components.set(entityId, new Set([component]));
@@ -69,20 +47,26 @@ export class World {
     components: Component[] = [],
   ): T {
     const entity = new EntityClass();
-    const entityComponents = new Set([
-      ...entity.initialize(params),
-      ...components,
-    ]);
-
     this.entities.set(entity.id, entity);
-    this.components.set(entity.id, entityComponents);
+
+    this.components.set(
+      entity.id,
+      new Set([...entity.initialize(params), ...components]),
+    );
+
+    // @todo better manage entities bitmasks
+    entity.mask =
+      this.components
+        .get(entity.id)
+        ?.values()
+        .reduce((mask, component) => mask | component.getMask(), 0) ?? 0;
 
     return entity;
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: must be a any
   public getComponent<T extends Component>(
     entityId: number,
+    // biome-ignore lint/suspicious/noExplicitAny:
     componentClass: new (...args: any[]) => T,
   ) {
     const entityComponents = this.components.get(entityId);
