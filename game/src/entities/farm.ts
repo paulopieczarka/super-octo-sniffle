@@ -23,7 +23,7 @@ export class Farm extends Entity {
           ],
           fillStyle: "#3d2936",
           lineWidth: 1,
-          strokeStyle: 'componentColor'
+          strokeStyle: "componentColor",
         },
       ]),
     ]);

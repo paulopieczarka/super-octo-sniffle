@@ -1,10 +1,4 @@
-import {
-  Camera,
-  Card,
-  Player,
-  createAction,
-  observable,
-} from "@hagokia/game";
+import { Camera, Card, Player, createAction, observable } from "@hagokia/game";
 import Bun from "bun";
 
 import { Game } from "./game/game";

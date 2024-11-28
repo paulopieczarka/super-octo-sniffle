@@ -70,7 +70,10 @@ export class Renderer extends System {
 
         this.ctx.fill();
         if (lineWidth) {
-          this.ctx.strokeStyle = strokeStyle === "componentColor" ? color?.value : strokeStyle ?? "black";
+          this.ctx.strokeStyle =
+            strokeStyle === "componentColor"
+              ? color?.value
+              : (strokeStyle ?? "black");
           this.ctx.lineWidth = lineWidth;
           this.ctx.stroke();
         }

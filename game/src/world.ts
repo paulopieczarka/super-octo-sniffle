@@ -75,7 +75,9 @@ export class World {
   ) {
     const entityComponents = this.components.get(entityId);
     if (entityComponents) {
-      return Array.from(entityComponents).find(c => c instanceof componentClass) as T;
+      return Array.from(entityComponents).find(
+        (c) => c instanceof componentClass,
+      ) as T;
     }
 
     return null;

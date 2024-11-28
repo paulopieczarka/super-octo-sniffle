@@ -9,9 +9,9 @@ export class Zombie extends Component {
 
   public zombifyColor(color: string) {
     return chroma(color)
-      .set('hsl.h', 120) // Shift hue towards green
-      .set('hsl.s', '*0.5') // Reduce saturation by half
-      .set('hsl.l', '+0.1') // Lighten slightly
+      .set("hsl.h", 120) // Shift hue towards green
+      .set("hsl.s", "*0.5") // Reduce saturation by half
+      .set("hsl.l", "+0.1") // Lighten slightly
       .hex(); // Return the resulting color in HEX
   }
 

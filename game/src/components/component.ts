@@ -1,4 +1,4 @@
-import { ComponentMask } from '.';
+import { ComponentMask } from ".";
 
 export abstract class Component {
   private readonly mask: number;
