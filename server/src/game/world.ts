@@ -3,13 +3,14 @@ import { TargetPosition } from "@hagokia/game/components";
 import {
   Bear,
   Campfire,
+  Farm,
   Human,
   Rock,
   Sheep,
   Tree,
 } from "@hagokia/game/entities";
 import { Movement } from "@hagokia/game/systems";
-import { FollowEntity } from "../../../game/src/components/component";
+import { FollowEntity } from "@hagokia/game/components";
 import {
   DepthCalculation,
   WanderAround,
@@ -28,8 +29,21 @@ export class WorldServer extends World {
       y: 238,
       color: "#de523e",
     });
+
+    this.spawn(Farm, {
+      x: 335,
+      y: 238,
+      color: "#de523e",
+    });
+
     const yellowCampfireEntity = this.spawn(Campfire, {
       x: 400,
+      y: 400,
+      color: "#f0b541",
+    });
+
+    this.spawn(Farm, {
+      x: 530,
       y: 400,
       color: "#f0b541",
     });
@@ -55,7 +69,7 @@ export class WorldServer extends World {
       const rx = Math.random() * 1024;
       const ry = Math.random() * 1024;
 
-      this.spawn(Human, { x: rx, y: ry, color: "#de523e" }, [
+      this.spawn(Human, { x: rx, y: ry, color: "#f0b541" }, [
         new TargetPosition(rx, ry),
         new FollowEntity(yellowCampfireEntity.id, 128),
       ]);

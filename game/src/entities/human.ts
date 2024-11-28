@@ -2,8 +2,8 @@ import { Color, Depth, Dimension, Position } from "../components";
 import { Entity } from "./entity";
 
 export class Human extends Entity {
-  constructor() {
-    super("Human");
+  constructor(name = "Generic Human") {
+    super(name);
   }
 
   public initialize(params: { x: number; y: number; color: string }) {

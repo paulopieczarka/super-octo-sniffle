@@ -1,4 +1,4 @@
-import { type Component, componentMap } from "./components/component";
+import { type Component, componentMap } from "./components";
 import type { Entity } from "./entities/entity";
 import type { System } from "./systems/system";
 
@@ -8,8 +8,8 @@ export class World {
   private systems = new Set<System>();
 
   public executeSystems() {
-    for (const system of this.systems) {
-      for (const entity of this.getEntities()) {
+    for (const entity of this.getEntities()) {
+      for (const system of this.systems) {
         if (system.shouldRun(entity.mask)) {
           system.execute(entity, this);
         }
@@ -23,6 +23,10 @@ export class World {
 
   public getEntity(id: number) {
     return this.entities.get(id);
+  }
+
+  public getComponents() {
+    return Array.from(this.components.values());
   }
 
   public addComponent(entityId: number, component: Component) {
@@ -70,12 +74,8 @@ export class World {
     componentClass: new (...args: any[]) => T,
   ) {
     const entityComponents = this.components.get(entityId);
-    if (!entityComponents) return null;
-
-    for (const component of entityComponents) {
-      if (component instanceof componentClass) {
-        return component as T;
-      }
+    if (entityComponents) {
+      return Array.from(entityComponents).find(c => c instanceof componentClass) as T;
     }
 
     return null;
@@ -85,6 +85,7 @@ export class World {
     this.systems.add(system);
   }
 
+  // @todo move to serializer
   public toJSON() {
     return {
       entities: Array.from(this.entities.values()),
@@ -95,6 +96,7 @@ export class World {
   }
 
   // @todo use zod
+  // @todo move to serializer
   public fromJSON(data: {
     entities: Entity[];
     components: Array<[number, ({ name: string } & Component)[]]>;

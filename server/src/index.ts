@@ -1,5 +1,4 @@
 import {
-  type Action,
   Camera,
   Card,
   Player,

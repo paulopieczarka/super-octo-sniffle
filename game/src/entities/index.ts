@@ -5,3 +5,4 @@ export { Rock } from "./rock";
 export { Bear } from "./bear";
 export { Sheep } from "./sheep";
 export { Tree } from "./tree";
+export { Farm } from "./farm";

@@ -5,7 +5,7 @@ import {
   FollowEntity,
   Position,
   TargetPosition,
-} from "../components/component";
+} from "../components";
 import type { Entity } from "../entities/entity";
 import type { World } from "../world";
 

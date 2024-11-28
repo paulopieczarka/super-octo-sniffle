@@ -6,7 +6,8 @@
     "dev": "bun --watch src/index.ts"
   },
   "dependencies": {
-    "@hagokia/game": "workspace:*"
+    "@hagokia/game": "workspace:*",
+    "chroma-js": "*"
   },
   "devDependencies": {
     "@types/bun": "latest"
