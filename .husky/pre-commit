@@ -1,0 +1,1 @@
+bun run lint:write && bun run lint:write && git add .
