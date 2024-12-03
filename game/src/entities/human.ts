@@ -1,4 +1,10 @@
-import { Color, Depth, Dimension, Position } from "../components";
+import {
+  Color,
+  type Component,
+  Depth,
+  Dimension,
+  Position,
+} from "../components";
 import { Entity } from "./entity";
 
 export class Human extends Entity {
@@ -7,7 +13,7 @@ export class Human extends Entity {
   }
 
   public initialize(params: { x: number; y: number; color: string }) {
-    return new Set([
+    return new Set<Component>([
       new Position(params.x, params.y),
       new Dimension(6, 10),
       new Color(params.color),

@@ -1,8 +1,8 @@
+import { Inventory } from "./Inventory";
 import { Color } from "./color";
 import { Depth } from "./depth";
 import { Dimension } from "./dimension";
 import { FollowEntity } from "./follow-entity";
-import { Inventory } from "./Inventory";
 import { Position } from "./position";
 import { Resource } from "./resource";
 import { Shape } from "./shape";

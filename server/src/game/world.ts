@@ -1,20 +1,21 @@
 import { World } from "@hagokia/game";
 import { TargetPosition } from "@hagokia/game/components";
+import { FollowEntity } from "@hagokia/game/components";
 import {
   Bear,
   Campfire,
   Farm,
   Human,
+  HumanZombie,
   Rock,
   Sheep,
   Tree,
 } from "@hagokia/game/entities";
-import { Movement } from "@hagokia/game/systems";
-import { FollowEntity } from "@hagokia/game/components";
 import {
   DepthCalculation,
+  Movement,
   WanderAround,
-} from "../../../game/src/systems/system";
+} from "@hagokia/game/systems";
 
 export class WorldServer extends World {
   constructor() {
